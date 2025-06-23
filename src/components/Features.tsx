@@ -22,7 +22,7 @@ const vehicleImages = [
     alt: 'Mecânico prestando assistência'
   },
   {
-    src: 'https://images.pexels.com/photos/1119796/pexels-photo-1119796.jpeg?auto=compress&cs=tinysrgb&w=500',
+    src: 'https://static.wixstatic.com/media/e4a89f_24867d70267a43b5b0543d1d7401e251~mv2.png/v1/fit/w_2500,h_1330,al_c/e4a89f_24867d70267a43b5b0543d1d7401e251~mv2.png',
     caption: 'Guincho especializado',
     alt: 'Caminhão guincho transportando carro'
   },
