@@ -15,4 +15,7 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
 });
+// para iniciar a pagina, abra o terminal e execute: npm run dev. Será gerada uma pagina web que você pode acessar no navegador.
+// Acesse o endereço http://localhost:5173/ para visualizar a aplicação em desenvolvimento.
+ 
 
