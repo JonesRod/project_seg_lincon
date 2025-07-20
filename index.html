@@ -23,6 +23,22 @@
     <link rel="icon" href="https://solidyprotecaoveicular.com.br/wp-content/uploads/2025/05/cropped-icon-32x32.png" sizes="32x32" />
     <link rel="icon" href="https://solidyprotecaoveicular.com.br/wp-content/uploads/2025/05/cropped-icon-192x192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="https://solidyprotecaoveicular.com.br/wp-content/uploads/2025/05/cropped-icon-180x180.png" />
+    
+    <!-- GitHub Pages SPA support -->
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // https://github.com/rafgraph/spa-github-pages
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
   </head>
   <body>
     <div id="root"></div>
