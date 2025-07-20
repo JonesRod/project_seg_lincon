@@ -20,7 +20,6 @@ export default defineConfig({
 });
 // para iniciar a pagina, abra o terminal e execute: npm run dev. Será gerada uma pagina web que você pode acessar no navegador.
 // Acesse o endereço http://localhost:5173/ para visualizar a aplicação em desenvolvimento.
-// não funciona no github pages, pois o caminho é diferente, então é necessário alterar o base para o nome do repositório
 */
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
