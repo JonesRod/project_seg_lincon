@@ -1,13 +1,15 @@
+import { AnimatePresence, motion } from 'framer-motion';
+import { Bike, Car, MessageCircle, Package, Truck, X } from 'lucide-react';
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageCircle, Car, Bike, Truck, Package } from 'lucide-react';
 import { useQuotation } from '../contexts/QuotationContext';
+import { openWhatsApp } from '../utils/whatsapp';
 
 interface FormData {
   vehicle: string;
   model: string;
   customModel: string;
   year: string;
+  plate: string;
   name: string;
   phone: string;
 }
@@ -69,6 +71,7 @@ export const QuotationModal = () => {
     model: '',
     customModel: '',
     year: '',
+    plate: '',
     name: '',
     phone: ''
   });
@@ -98,20 +101,52 @@ export const QuotationModal = () => {
     setFormData(prev => ({ ...prev, phone: value }));
   };
 
+  const handlePlateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    
+    if (value.length > 7) value = value.slice(0, 7);
+    
+    if (value.length >= 4) {
+      const letters = value.slice(0, 3);
+      const remaining = value.slice(3);
+      
+      // Verifica se está seguindo o padrão Mercosul (letra na 5ª posição)
+      if (remaining.length >= 2 && /[A-Z]/.test(remaining[1])) {
+        // Formato Mercosul: ABC1D23
+        value = letters + remaining;
+      } else {
+        // Formato Antigo: ABC-1234
+        value = letters + '-' + remaining;
+      }
+    }
+    
+    setFormData(prev => ({ ...prev, plate: value }));
+  };
+
+  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Remove tudo que não for número
+    let value = e.target.value.replace(/\D/g, '');
+    
+    // Limita a 4 dígitos
+    if (value.length > 4) value = value.slice(0, 4);
+    
+    setFormData(prev => ({ ...prev, year: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     const finalModel = formData.model === 'Outro modelo' ? formData.customModel : formData.model;
     
-    const message = `Olá, sou o(a) ${formData.name}.
-Eu gostaria de solicitar uma cotação:
-Veículo: ${formData.vehicle}
-Modelo: ${finalModel}
-Ano: ${formData.year}
-Telefone: ${formData.phone}`;
+    const message = `Olá, sou o(a) ${formData.name}.\n` +
+      `Eu gostaria de solicitar uma cotação:\n` +
+      `Veículo: ${formData.vehicle}\n` +
+      `Modelo: ${finalModel}\n` +
+      `Ano: ${formData.year}\n` +
+      `Placa: ${formData.plate}\n` +
+      `Telefone: ${formData.phone}`;
 
-    const whatsappUrl = `https://wa.me/556791617815?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    openWhatsApp(message);
     
     // Reset form and close modal
     setFormData({
@@ -119,6 +154,7 @@ Telefone: ${formData.phone}`;
       model: '',
       customModel: '',
       year: '',
+      plate: '',
       name: '',
       phone: ''
     });
@@ -245,17 +281,40 @@ Telefone: ${formData.phone}`;
                   Ano
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="year"
                   name="year"
                   value={formData.year}
-                  onChange={handleInputChange}
+                  onChange={handleYearChange}
                   placeholder="Ex: 2022"
-                  min="1950"
-                  max="2030"
+                  maxLength={4}
                   className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm"
                   required
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Digite apenas o ano com 4 dígitos
+                </p>
+              </div>
+
+              {/* Plate */}
+              <div>
+                <label htmlFor="plate" className="block text-sm font-semibold text-gray-700 mb-1">
+                  Placa do Veículo
+                </label>
+                <input
+                  type="text"
+                  id="plate"
+                  name="plate"
+                  value={formData.plate}
+                  onChange={handlePlateChange}
+                  placeholder="ABC-1234 ou ABC1D23"
+                  maxLength={8}
+                  className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm font-mono"
+                  required
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Formato antigo (ABC-1234) ou Mercosul (ABC1D23)
+                </p>
               </div>
 
               {/* Name */}

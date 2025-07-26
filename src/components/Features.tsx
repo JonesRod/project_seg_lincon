@@ -1,7 +1,7 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, MessageCircle, FileText, Phone } from 'lucide-react';
+import { CheckCircle, FileText, MessageCircle } from 'lucide-react';
 import { useQuotation } from '../contexts/QuotationContext';
+import { openWhatsAppWithPredefinedMessage } from '../utils/whatsapp';
 
 const features = [
   'Proteção contra roubo, furto e acidentes',
@@ -35,7 +35,10 @@ const vehicleImages = [
 
 export const Features = () => {
   const { openModal } = useQuotation();
-  const whatsappUrl = "https://wa.me/556791617815?text=Olá%20Lincon%2C%20gostaria%20de%20tirar%20dúvidas%20sobre%20seguros.";
+  
+  const handleWhatsAppClick = () => {
+    openWhatsAppWithPredefinedMessage('question');
+  };
 
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-white">
@@ -80,17 +83,15 @@ export const Features = () => {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-4 pt-6"
             >
-              <motion.a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <motion.button
+                onClick={handleWhatsAppClick}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="group bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-semibold flex items-center gap-3 shadow-lg hover:shadow-xl transition-all duration-300 justify-center"
               >
                 <MessageCircle className="w-5 h-5 group-hover:rotate-12 transition-transform" />
                 Tirar Dúvidas
-              </motion.a>
+              </motion.button>
 
               <motion.button
                 onClick={openModal}

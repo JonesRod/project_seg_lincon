@@ -1,9 +1,11 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle } from 'lucide-react';
+import { openWhatsAppWithPredefinedMessage } from '../utils/whatsapp';
 
 export const WhatsAppFloat = () => {
-  const whatsappUrl = "https://wa.me/556791617815?text=Olá%20Lincon%2C%20como%20contratar%20um%20seguro%20de%20carro%20ou%20moto?";
+  const handleWhatsAppClick = () => {
+    openWhatsAppWithPredefinedMessage('contact');
+  };
 
   return (
     <motion.div
@@ -12,10 +14,8 @@ export const WhatsAppFloat = () => {
       transition={{ delay: 1, type: "spring", stiffness: 200 }}
       className="fixed bottom-6 right-6 z-50"
     >
-      <motion.a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <motion.button
+        onClick={handleWhatsAppClick}
         whileHover={{ 
           scale: 1.1,
           boxShadow: "0 0 0 8px rgba(37, 211, 102, 0.3)"
@@ -40,7 +40,7 @@ export const WhatsAppFloat = () => {
           }}
           className="absolute inset-0 bg-green-500 rounded-full"
         />
-      </motion.a>
+      </motion.button>
     </motion.div>
   );
 };

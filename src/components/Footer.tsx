@@ -1,6 +1,7 @@
-import React from 'react';
+//import React from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Heart } from 'lucide-react';
+//import { Shield, Heart } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
 export const Footer = () => {
   return (

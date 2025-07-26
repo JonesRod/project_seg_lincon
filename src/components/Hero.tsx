@@ -1,12 +1,14 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, FileText, Shield, Star } from 'lucide-react';
+import { FileText, MessageCircle, Shield, Star } from 'lucide-react';
 import { useQuotation } from '../contexts/QuotationContext';
+import { openWhatsAppWithPredefinedMessage } from '../utils/whatsapp';
 
 export const Hero = () => {
   const { openModal } = useQuotation();
-
-  const whatsappUrl = "https://wa.me/556791617815?text=Olá%20Lincon%2C%20como%20contratar%20um%20seguro%20de%20carro%20ou%20moto?";
+  
+  const handleWhatsAppClick = () => {
+    openWhatsAppWithPredefinedMessage('contact');
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -88,17 +90,15 @@ export const Hero = () => {
             transition={{ delay: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <motion.a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={handleWhatsAppClick}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="group bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all duration-300 min-w-[280px] justify-center"
             >
               <MessageCircle className="w-6 h-6 group-hover:rotate-12 transition-transform" />
               Falar com Consultor
-            </motion.a>
+            </motion.button>
 
             <motion.button
               onClick={openModal}

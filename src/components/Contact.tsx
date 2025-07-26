@@ -1,11 +1,14 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Phone, MapPin, Clock, FileText } from 'lucide-react';
+import { Clock, FileText, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { useQuotation } from '../contexts/QuotationContext';
+import { openWhatsAppWithPredefinedMessage } from '../utils/whatsapp';
 
 export const Contact = () => {
   const { openModal } = useQuotation();
-  const whatsappUrl = "https://wa.me/556791617815?text=Olá%20Lincon%2C%20como%20contratar%20um%20seguro%20de%20carro%20ou%20moto?";
+  
+  const handleWhatsAppClick = () => {
+    openWhatsAppWithPredefinedMessage('contact');
+  };
 
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-white">
@@ -47,7 +50,7 @@ export const Contact = () => {
                     <Phone className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800">(67) 99161-7815</p>
+                    <p className="font-semibold text-gray-800">(67) 99147-1070</p>
                     <p className="text-sm text-gray-500">Disponível via WhatsApp</p>
                   </div>
                 </div>
@@ -89,10 +92,8 @@ export const Contact = () => {
               </p>
 
               <div className="space-y-4">
-                <motion.a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <motion.button
+                  onClick={handleWhatsAppClick}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="block w-full bg-green-500 hover:bg-green-600 text-white py-4 px-6 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
@@ -101,7 +102,7 @@ export const Contact = () => {
                     <MessageCircle className="w-6 h-6" />
                     Conversar no WhatsApp
                   </div>
-                </motion.a>
+                </motion.button>
 
                 <motion.button
                   onClick={openModal}
